@@ -28,6 +28,9 @@ var MenuStore = {};
     },
 
     onAddToMeal: function (id) {
+      // IDs are stored as a string by the JSON.
+      id = '' + id;
+
       // If the item is already in our meal, ignore it.
       if (jQuery.inArray(id, _store.meal) !== -1) { return; }
 
@@ -37,9 +40,12 @@ var MenuStore = {};
     },
 
     onRemoveFromMeal: function (id) {
+      // IDs are stored as a string by the JSON.
+      id = '' + id;
+
       // Remove any item with the same ID from the meal.
       _store.meal = jQuery.grep(_store.meal, function (test) {
-        return id == test;
+        return id != test;
       });
 
       this.trigger(_store);
@@ -49,5 +55,4 @@ var MenuStore = {};
 
 jQuery.get('/sites/all/modules/react_example/js/data.json', function (data) {
   MenuStore.Actions.initMenu(data);
-  MenuStore.Actions.addToMeal(536);
 });
