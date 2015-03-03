@@ -1,34 +1,20 @@
 var Menu = React.createClass({
-  getInitialState: function () {
-    return {
-      // An object full of item ids and their nutritional information.
-      items: {},
-      // An array of items that make up the user's meal.
-      meal: [],
-    };
-  },
-
-  componentWillMount: function () {
-    jQuery.get('/sites/all/modules/react_example/js/data.json', function (data) {
-      this.setState({ items: data });
-      this.setState({ meal: [536, 541] });
-    }.bind(this));
-  },
+  mixins: [Reflux.connect(MenuStore.Store, 'store')],
 
   render: function () {
-    var ids = Object.keys(this.state.items);
+    var ids = Object.keys(this.state.store.items);
     var items = jQuery.map(ids, function (id) {
-      var item = this.state.items[id]
+      var item = this.state.store.items[id]
         , key = 'menu-item-' + id;
 
       return (
-        <MenuItem items={this.state.items} id={id}/>
+        <MenuItem id={id}/>
       );
     }.bind(this));
 
     return (
       <div className="menu">
-        <MealPlanner items={this.state.items} meal={this.state.meal} />
+        <MealPlanner />
         <div className="menu-items">
           <h1>Menu Items</h1>
           <table>

@@ -1,11 +1,13 @@
 var MealPlanner = React.createClass({
+  mixins: [Reflux.connect(MenuStore.Store, 'store')],
+
   render: function () {
-    var meal = this.props.meal.map(function (id) {
-      var item = this.props.items[id]
+    var meal = this.state.store.meal.map(function (id) {
+      var item = this.state.store.items[id]
         , key = 'menu-item-' + id;
 
       return (
-        <MenuItem items={this.props.items} id={id}/>
+        <MenuItem id={id}/>
       );
     }.bind(this));
 

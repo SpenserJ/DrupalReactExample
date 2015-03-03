@@ -18,9 +18,9 @@ function babelJSFiles(path, files, filename) {
 }
 
 gulp.task('default', function () {
-  gulp.watch('./sites/all/modules/react_example/js/src/*.jsx', ['babel']);
+  gulp.watch('./sites/all/modules/react_example/js/src/*.js*', ['babel']);
 });
 
 gulp.task('babel', function () {
-  return babelJSFiles('./sites/all/modules/react_example/js', ['*.jsx', 'main.jsx'], 'react_example.js');
+  return babelJSFiles('./sites/all/modules/react_example/js', ['MenuStore.js', '*.jsx', 'main.jsx'], 'react_example.js');
 });

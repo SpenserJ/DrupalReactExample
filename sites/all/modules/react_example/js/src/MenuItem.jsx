@@ -1,6 +1,8 @@
 var MenuItem = React.createClass({
+  mixins: [Reflux.connect(MenuStore.Store, 'store')],
+
   render: function () {
-    var item = this.props.items[this.props.id]
+    var item = this.state.store.items[this.props.id]
       , key = 'menu-item-' + this.props.id;
 
     return (
