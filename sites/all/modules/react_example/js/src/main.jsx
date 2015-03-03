@@ -20,13 +20,27 @@ var Menu = React.createClass({
       var item = this.state.items[id]
         , key = 'menu-item-' + id;
 
-      return (<h2 key={key}>{item.name}</h2>);
+      return (
+        <tr key={key}>
+          <td>{item.name}</td>
+          <td>{item.field_calories}</td>
+        </tr>
+      );
     }.bind(this));
 
     return (
       <div className="menu">
-        <h1>It works!</h1>
-        {items}
+        <table>
+          <thead>
+            <tr>
+              <td>Name</td>
+              <td>Calories</td>
+            </tr>
+          </thead>
+          <tbody>
+            {items}
+          </tbody>
+        </table>
       </div>
     );
   },
