@@ -2,15 +2,16 @@ var Menu = React.createClass({
   getInitialState: function () {
     return {
       // An object full of item ids and their nutritional information.
-      items: {
-        '1': {
-          name: 'Steak',
-          calories: 420,
-        }
-      },
+      items: {},
       // An array of items that make up the user's meal.
       meal: [],
     };
+  },
+
+  componentWillMount: function () {
+    jQuery.get('/sites/all/modules/react_example/js/data.json', function (data) {
+      this.setState({ items: data });
+    }.bind(this));
   },
 
   render: function () {
