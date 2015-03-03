@@ -11,6 +11,7 @@ var Menu = React.createClass({
   componentWillMount: function () {
     jQuery.get('/sites/all/modules/react_example/js/data.json', function (data) {
       this.setState({ items: data });
+      this.setState({ meal: [536, 541] });
     }.bind(this));
   },
 
@@ -21,28 +22,28 @@ var Menu = React.createClass({
         , key = 'menu-item-' + id;
 
       return (
-        <tr key={key}>
-          <td>{item.name}</td>
-          <td>{item.field_calories}</td>
-          <td><input type="checkbox" disabled checked={item.field_brandon_thordarson === '1'} /></td>
-        </tr>
+        <MenuItem items={this.state.items} id={id}/>
       );
     }.bind(this));
 
     return (
       <div className="menu">
-        <table>
-          <thead>
-            <tr>
-              <td>Name</td>
-              <td>Calories</td>
-              <td>Brandon Approved?</td>
-            </tr>
-          </thead>
-          <tbody>
-            {items}
-          </tbody>
-        </table>
+        <MealPlanner items={this.state.items} meal={this.state.meal} />
+        <div className="menu-items">
+          <h1>Menu Items</h1>
+          <table>
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Calories</td>
+                <td>Brandon Approved?</td>
+              </tr>
+            </thead>
+            <tbody>
+              {items}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   },
