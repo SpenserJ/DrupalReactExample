@@ -24,6 +24,7 @@ var Menu = React.createClass({
         <tr key={key}>
           <td>{item.name}</td>
           <td>{item.field_calories}</td>
+          <td><input type="checkbox" disabled checked={item.field_brandon_thordarson === '1'} /></td>
         </tr>
       );
     }.bind(this));
@@ -35,6 +36,7 @@ var Menu = React.createClass({
             <tr>
               <td>Name</td>
               <td>Calories</td>
+              <td>Brandon Approved?</td>
             </tr>
           </thead>
           <tbody>
