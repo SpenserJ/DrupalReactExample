@@ -1,0 +1,2 @@
+"use strict";var Menu=React.createClass({displayName:"Menu",render:function(){return React.createElement("div",{className:"menu"},React.createElement("h1",null,"It works!"))}});React.render(React.createElement(Menu),document.getElementById("react-tutorial"));
+//# sourceMappingURL=react_example.js.map
