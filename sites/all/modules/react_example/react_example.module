@@ -1,1 +1,19 @@
 <?php
+
+function react_example_menu() {
+  $menu = array();
+  $menu['react_example'] = array(
+    'page callback' => 'react_example_page',
+    'access callback' => TRUE,
+  );
+  return $menu;
+}
+
+function react_example_page() {
+  // Load up the React library in source mode.
+  libraries_load('react', 'source');
+
+  $path = drupal_get_path('module', 'react_example');
+  drupal_add_js($path . '/js/build/react_example.js', array('scope' => 'footer'));
+  return '<div id="react-tutorial"></div>';
+}
