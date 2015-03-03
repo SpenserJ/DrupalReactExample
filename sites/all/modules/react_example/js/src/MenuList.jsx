@@ -4,9 +4,11 @@ var MenuList = React.createClass({
   render: function () {
     var ids = Object.keys(this.state.store.items);
     var items = jQuery.map(ids, function (id) {
-      var key = 'menu-item-' + id;
-      return (<MenuItem key={key} id={id}/>);
-    });
+      var item = this.state.store.items[id]
+        , key = 'menu-item-' + id;
+
+      return (<MenuItem key={key} item={item}/>);
+    }.bind(this));
 
     return (
       <div className="menu-items">

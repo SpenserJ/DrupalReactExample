@@ -7,7 +7,7 @@ var MealPlanner = React.createClass({
         , key = 'menu-item-' + id;
 
       return (
-        <MenuItem id={id}/>
+        <MenuItem key={key} item={item}/>
       );
     }.bind(this));
 
