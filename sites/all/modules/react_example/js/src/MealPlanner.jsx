@@ -16,7 +16,40 @@ var MealPlanner = React.createClass({
       return (
         <MenuItem key={key} item={item} inMeal='true' />
       );
-    }.bind(this));
+    });
+
+    var nutritional = mealItems.reduce(function (total, item) {
+      total.calories += (parseInt(item.field_calories, 10) || 0);
+      total.total_fats += (parseInt(item.field_total_fats, 10) || 0);
+      total.carbohydrates += (parseInt(item.field_carbohydrates, 10) || 0);
+      total.dietary_fiber += (parseInt(item.field_dietary_fiber, 10) || 0);
+      return total;
+    }, {
+      calories: 0,
+      total_fats: 0,
+      carbohydrates: 0,
+      dietary_fiber: 0,
+    });
+    var nutritionalTable = (
+      <table>
+        <thead>
+          <tr>
+            <td>Calories</td>
+            <td>Total Fats</td>
+            <td>Carbohydrates</td>
+            <td>Dietary Fiber</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{nutritional.calories}</td>
+            <td>{nutritional.total_fats}</td>
+            <td>{nutritional.carbohydrates}</td>
+            <td>{nutritional.dietary_fiber}</td>
+          </tr>
+        </tbody>
+      </table>
+    );
 
     return (
       <div className="meal-planner">
@@ -33,6 +66,7 @@ var MealPlanner = React.createClass({
             {meal}
           </tbody>
         </table>
+        {nutritionalTable}
       </div>
     );
   },
