@@ -1,0 +1,15 @@
+{
+  "name": "SimpleSimpleGulp",
+  "version": "0.0.1",
+  "description": "Simple installation of all gulp-related packages",
+  "author": "Spenser Jones <hello@spenserj.com>",
+  "dependencies": {
+    "gulp": "^3.8.10",
+    "gulp-babel": "^4.0.0",
+    "gulp-concat": "^2.5.2",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-sourcemaps": "^1.3.0",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "^3.0.2"
+  }
+}
