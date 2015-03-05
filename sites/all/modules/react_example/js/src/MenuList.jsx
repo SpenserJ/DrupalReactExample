@@ -10,17 +10,25 @@ var MenuList = React.createClass({
   },
 
   render: function () {
+    var searchFilter = this.state.filter.split(/(?:\s|,)/);
     var items = Object.keys(this.state.store.items)
+    // Filter out items that are listed in our meal.
     .filter(function (id) {
       return jQuery.inArray(id, this.state.store.meal) === -1;
     }.bind(this))
+    // Map item ids to menu item objects.
     .map(function (id) {
       return this.state.store.items[id];
     }.bind(this))
+    // Filter out items that don't match all search terms.
     .filter(function (item) {
-      return (this.state.filter === ''
-           || item.name.indexOf(this.state.filter) > -1);
+      if (searchFilter.length === 0) { return true; }
+      var matches = searchFilter.filter(function (term) {
+        return item.name.indexOf(term) > -1;
+      });
+      return (matches.length === searchFilter.length);
     }.bind(this))
+    // Map item objects into rendered content.
     .map(function (item) {
       return (<MenuItem key={'menu-item-' + item.id} item={item} />);
     });
