@@ -2,11 +2,21 @@ var MenuList = React.createClass({
   mixins: [Reflux.connect(MenuStore.Store, 'store')],
 
   getInitialState: function () {
-    return { filter: '', };
+    return {
+      filter: '',
+      vegetarian: false,
+      brandon: false,
+    };
   },
 
   updateFilter: function (e) {
-    this.setState({ filter: e.target.value, });
+    var newFilter = {};
+    if (e.target.type === 'checkbox') {
+      newFilter[e.target.name] = e.target.checked;
+    } else {
+      newFilter[e.target.name] = e.target.value;
+    }
+    this.setState(newFilter);
   },
 
   render: function () {
@@ -27,6 +37,16 @@ var MenuList = React.createClass({
         return item.name.indexOf(term) > -1;
       });
       return (matches.length === searchFilter.length);
+    })
+    // Filter out items that don't meet our vegetarian filter.
+    .filter(function (item) {
+      return (this.state.vegetarian === false
+           || item.field_vegetarian == this.state.vegetarian);
+    }.bind(this))
+    // Filter out items that don't meet our Brandon filter.
+    .filter(function (item) {
+      return (this.state.brandon === false
+           || item.field_brandon_thordarson == this.state.brandon);
     }.bind(this))
     // Map item objects into rendered content.
     .map(function (item) {
@@ -36,9 +56,18 @@ var MenuList = React.createClass({
     return (
       <div className="menu-items">
         <h1>Menu Items</h1>
-        <div>
-          <label>Filter: </label><input type="text" size="60" onChange={this.updateFilter} />
-        </div>
+        <span>
+          <label>Filter: </label>
+          <input type="text" size="60" name="filter" onChange={this.updateFilter} />
+        </span>
+        <span>
+          <label>Vegetarian: </label>
+          <input type="checkbox" name="vegetarian" onChange={this.updateFilter} />
+        </span>
+        <span>
+          <label>Brandon Approved: </label>
+          <input type="checkbox" name="brandon" onChange={this.updateFilter} />
+        </span>
         <table>
           <thead>
             <tr>
