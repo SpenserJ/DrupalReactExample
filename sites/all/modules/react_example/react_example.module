@@ -15,6 +15,10 @@ function react_example_page() {
 
   $path = drupal_get_path('module', 'react_example');
   drupal_add_js($path . '/js/reflux.min.js', array('scope' => 'footer'));
+  // Add in a React Tags plugin.
+  drupal_add_js($path . '/js/react-tagsinput.js', array('scope' => 'footer'));
+  drupal_add_css($path . '/css/react-tagsinput.css');
+
   drupal_add_js($path . '/js/build/react_example.js', array('scope' => 'footer'));
   return '<div id="react-tutorial"></div>';
 }

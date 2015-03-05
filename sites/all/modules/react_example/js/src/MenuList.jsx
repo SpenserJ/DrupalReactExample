@@ -3,7 +3,7 @@ var MenuList = React.createClass({
 
   getInitialState: function () {
     return {
-      filter: '',
+      terms: [],
       vegetarian: false,
       brandon: false,
     };
@@ -11,7 +11,9 @@ var MenuList = React.createClass({
 
   updateFilter: function (e) {
     var newFilter = {};
-    if (e.target.type === 'checkbox') {
+    if (e instanceof Array) {
+      newFilter.terms = e;
+    } else if (e.target.type === 'checkbox') {
       newFilter[e.target.name] = e.target.checked;
     } else {
       newFilter[e.target.name] = e.target.value;
@@ -20,7 +22,6 @@ var MenuList = React.createClass({
   },
 
   render: function () {
-    var searchFilter = this.state.filter.split(/(?:\s|,)/);
     var items = Object.keys(this.state.store.items)
     // Filter out items that are listed in our meal.
     .filter(function (id) {
@@ -32,12 +33,12 @@ var MenuList = React.createClass({
     }.bind(this))
     // Filter out items that don't match all search terms.
     .filter(function (item) {
-      if (searchFilter.length === 0) { return true; }
-      var matches = searchFilter.filter(function (term) {
+      if (this.state.terms.length === 0) { return true; }
+      var matches = this.state.terms.filter(function (term) {
         return item.name.indexOf(term) > -1;
       });
-      return (matches.length === searchFilter.length);
-    })
+      return (matches.length === this.state.terms.length);
+    }.bind(this))
     // Filter out items that don't meet our vegetarian filter.
     .filter(function (item) {
       return (this.state.vegetarian === false
@@ -57,8 +58,8 @@ var MenuList = React.createClass({
       <div className="menu-items">
         <h1>Menu Items</h1>
         <span>
-          <label>Filter: </label>
-          <input type="text" size="60" name="filter" onChange={this.updateFilter} />
+          <label>Search Terms: </label>
+          <ReactTagsInput ref="terms" onChange={this.updateFilter} />
         </span>
         <span>
           <label>Vegetarian: </label>
